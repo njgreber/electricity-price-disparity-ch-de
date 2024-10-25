@@ -34,7 +34,7 @@ Before running the script, ensure you add the API key to the `headers` variable 
 
 ```python
 headers = {"AUTH_API_KEY": "your_api_key_here"}
-
+```
 
 ## Project Organization
 
