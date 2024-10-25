@@ -1,6 +1,3 @@
-black
-flake8
-isort
-pip
-python-dotenv
--e .
+pandas
+requests
+python-dateutil
