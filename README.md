@@ -6,10 +6,6 @@
 
 We are interested in analyzing the auction prices from the Joint Allocation Office (JAO) at the Swiss border, where electricity production and supply companies purchase capacity for importing and exporting electricity. Specifically, we aim to investigate whether the auction prices at the border between Switzerland and Germany correspond to the price differences in the respective day-ahead electricity markets. We plan to use the day-ahead prices from the entso-e transparency platform and auction price data via the JAO API.
 
-# Electricity Price Disparity Analysis
-
-This project analyzes electricity auction prices from the JAO API between Germany and Switzerland. It uses Docker to set up a reproducible environment with Python, ensuring that the data-gathering script can run independently of local dependencies.
-
 ## Setup Instructions
 
 ### Prerequisites
