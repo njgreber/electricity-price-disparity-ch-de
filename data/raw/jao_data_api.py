@@ -26,6 +26,8 @@ while current_date <= end_date:
     first_days_of_month.append(current_date.strftime("%Y-%m-%d"))
     current_date += relativedelta(months=1)
 
+
+
 i = 1
 for day in first_days_of_month[:-1]:
     params = {
