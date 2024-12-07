@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from statsmodels.tsa.stattools import adfuller
 from scipy import stats
-from statsmodels.stats.diagnostic import acorr_ljungbox
+import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
 
@@ -18,19 +18,37 @@ def test_autocorr_specific_lag(series, lag):
    p_value = 2*(1 - stats.norm.cdf(abs(z_stat)))  # Two-sided test
    return {'acf': acf, 'z_stat': z_stat, 'p_value': p_value}
 
-def test_variance_trend(df):
-   # Calculate average prices
-   df['avg_price'] = (df['CH'] + df['DE-LU'])/2
+
+def run_hac_test(series):
+   X = np.ones(len(series.dropna()))
+   y = series.dropna()
+   model = sm.OLS(y, X)
+   results = model.fit(cov_type='HAC', cov_kwds={'maxlags': 96})
+   return {
+       't_stat': float(results.tvalues.iloc[0]),
+       'p_value': float(results.pvalues.iloc[0])
+   }
+
+def test_variance_trend(series1, series2, error_series, window_days=30):
+   """
+   Test for trend in normalized error variance
    
+   Args:
+       series1: First day-ahead price series
+       series2: Second day-ahead price series 
+       error_series: Error series
+       window_days: Rolling window size in days
+   """
    # Calculate normalized error
-   df['norm_error'] = df['error']/df['avg_price']
+   avg_price = (series1 + series2)/2
+   norm_error = error_series/avg_price
    
-   # Calculate rolling variance (e.g., monthly)
-   rolling_var = df['norm_error'].rolling(window=24*4*30).var()  # 30 days
+   # Calculate rolling variance
+   rolling_var = norm_error.rolling(window=window_days).var()
    
-   # Test for trend in variance
+   # Test for trend
    time_index = np.arange(len(rolling_var))
-   slope, intercept, r_value, p_value, std_err = stats.linregress(
+   slope, _, r_value, p_value, _ = stats.linregress(
        time_index[~np.isnan(rolling_var)], 
        rolling_var.dropna()
    )
