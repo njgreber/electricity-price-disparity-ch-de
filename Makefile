@@ -2,6 +2,14 @@
 build:
 	docker-compose build
 
+# Start Jupyter for interactive work
+jupyter:
+	docker-compose run -p 8888:8888 app bash -c "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser"
+
+# Open Jupyter Notebook in browser
+jupyter-browser:
+	docker-compose run -p 8888:8888 app bash -c "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root"
+
 # Process data
 process:
 	docker-compose run app bash -c "jupyter nbconvert --to notebook --execute --inplace notebooks/1_process_data.ipynb"

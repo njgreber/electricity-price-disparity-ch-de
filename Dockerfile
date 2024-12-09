@@ -19,10 +19,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     latexmk \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip and install dependencies
-RUN pip install --upgrade pip
+# Install Jupyter Notebook and register the kernel
+RUN pip install --upgrade pip \
+    && pip install jupyter ipykernel \
+    && python -m ipykernel install --user --name python3 --display-name "Python 3 (Docker)"
+
+# Install additional Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Default command to keep container running
+# Expose Jupyter port for browser and VS Code
+EXPOSE 8888
+
+# Default command to keep the container running
 CMD ["tail", "-f", "/dev/null"]
+
 

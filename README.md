@@ -32,6 +32,111 @@ Before running the script, ensure you add the API key to the `headers` variable 
 headers = {"AUTH_API_KEY": "your_api_key_here"}
 ```
 
+The PV data from: https://www.bfe.admin.ch/bfe/de/home/versorgung/statistik-und-geodaten/monitoring-energiestrategie-2050.exturl.html/aHR0cHM6Ly9wdWJkYi5iZmUuYWRtaW4uY2gvZGUvcHVibGljYX/Rpb24vZG93bmxvYWQvMTAzMjI=.html 
+
+
+## Python-LaTeX Docker Environment
+
+This project provides a Dockerized environment for working with Python, Jupyter Notebook, and LaTeX. The setup ensures compatibility for both browser-based Jupyter workflows and development within Visual Studio Code (VS Code).
+
+---
+
+### Features
+
+- **Python & Jupyter**: Pre-configured Python environment with Jupyter Notebook support.
+- **LaTeX**: Pre-installed LaTeX packages for compiling `.tex` files.
+- **VS Code Integration**: Designed to work seamlessly with the VS Code Remote - Containers extension.
+- **Browser Access**: Jupyter Notebook accessible in your web browser.
+
+---
+
+### Setup
+
+#### 1. Build the Container
+
+To build the container, run:
+```bash
+make build
+```
+Once built, reopen the folder in VS Code using the **Remote - Containers** extension to start working within the Docker container.
+
+---
+
+#### 2. Run Jupyter Notebook
+
+##### Option 1: Access via Browser
+
+Start Jupyter Notebook and access it in your browser:
+```bash
+make jupyter-browser
+```
+The command will output a link (e.g., `http://127.0.0.1:8888`). Copy and paste it into your browser to interact with your notebooks.
+
+##### Option 2: Access via VS Code
+
+1. Open a `.ipynb` file in VS Code.
+2. Ensure the Jupyter kernel is set to **Python 3 (Docker)**.
+
+---
+
+#### 3. Run the Full Pipeline
+
+To execute the complete pipeline (data processing, notebook execution, and LaTeX compilation), run:
+```bash
+make run-all
+```
+
+---
+
+### File Overview
+
+#### `docker-compose.yml`
+
+Defines the services and configurations for the Docker container.
+
+#### `.devcontainer/devcontainer.json`
+
+Configures the development environment for VS Code.
+
+#### `Dockerfile`
+
+Specifies the container setup, including:
+- Python 3.10
+- LaTeX packages
+- Installation of Python dependencies from `requirements.txt`.
+
+#### `Makefile`
+
+Defines the available commands:
+- `make build`: Builds the Docker container.
+- `make jupyter-browser`: Starts Jupyter Notebook and opens it in a browser.
+- `make process`: Executes and updates Jupyter Notebooks.
+- `make compile`: Compiles LaTeX files to generate PDFs.
+- `make run-all`: Runs the full pipeline (build, process, compile).
+
+---
+
+### Commands Overview
+
+| Command                | Description                                      |
+|------------------------|--------------------------------------------------|
+| `make build`           | Builds the Docker container.                     |
+| `make jupyter`         | Starts Jupyter Notebook (no browser).            |
+| `make jupyter-browser` | Starts Jupyter Notebook and opens it in a browser. |
+| `make process`         | Executes and updates Jupyter Notebooks.          |
+| `make compile`         | Compiles LaTeX files to generate PDFs.           |
+| `make run-all`         | Runs the full pipeline (build, process, compile).|
+
+---
+
+### Notes
+
+- Ensure you have Docker installed and running on your machine.
+- Use the VS Code **Remote - Containers** extension for a fully integrated development environment.
+
+This setup is designed for flexibility and ease of use in both browser and VS Code-based workflows. Let us know if further adjustments are needed!
+
+
 ## Project Organization
 
 ```

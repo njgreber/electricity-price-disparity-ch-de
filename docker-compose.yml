@@ -6,3 +6,5 @@ services:
       - .:/app
     working_dir: /app
     tty: true
+    ports:
+      - "8888:8888"  # Expose Jupyter Notebook port for browser and VS Code
