@@ -22,7 +22,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+diste
 downloads/
 eggs/
 .eggs/
@@ -163,6 +163,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# ignore all png-figures
+*.png
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
