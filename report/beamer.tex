@@ -1,163 +1,147 @@
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND THEMES
-%----------------------------------------------------------------------------------------
 \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{Simple}
 
 \usepackage{hyperref}
-\usepackage{graphicx} % Allows including images
-\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{graphicx}
+\usepackage{booktabs}
 
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
 
-% The title
-\title[short title]{Electricity Price Disparity}
-\subtitle{CH-DE}
 
-\author[Pin-Yen] {Nicolas Joël Greber, Massimo Antonio Nardo, Vansh Khanna}
-\institute[NTU] % Your institution may be shorthand to save space
+\title[short title]{Bridging the Gap: Analyzing Auction Prices and Day-Ahead Market Discrepancies at the Swiss-German Electricity Border}
+
+\author{Nicolas Greber, Massimo Nardo, Vansh Khanna}
+\institute
 {
-    % Your institution for the title page
     Department of Finance \\
     University of Zurich
     \vskip 3pt
 }
-\date{\today} % Date, can be changed to a custom date
+\date{\today}
 
 
-%----------------------------------------------------------------------------------------
-%	PRESENTATION SLIDES
-%----------------------------------------------------------------------------------------
 
 \begin{document}
 
 \begin{frame}
-    % Print the title page as the first slide
     \titlepage
 \end{frame}
 
 \begin{frame}{Overview}
     % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
     \tableofcontents
+    \section{Motivation}
+
+\section{Data}
+
+\section{Methodology}
+
+\section{Results}
+
+\section{Discussion}
+
 \end{frame}
 
-%------------------------------------------------
-\section{First Section}
-%------------------------------------------------
+\begin{frame}{Motivation}
 
-\begin{frame}{Bullet Points}
+\begin{itemize}
+    \item Switzerland is not part of the European Market Coupling system.
+    \item Electricity trading occurs explicitly across Switzerland-Germany borders.
+    \item Study focus:
     \begin{itemize}
-        \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        \item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-        \item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-        \item Nam cursus est eget velit posuere pellentesque
-        \item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
+        \item Analyze whether border prices reflect market price differences.
+        \item Identify pricing error patterns if border prices fail to represent these differences.
     \end{itemize}
+\end{itemize}
+
 \end{frame}
 
-%------------------------------------------------
+\begin{frame}{Data}
+\begin{itemize}
+    \item Day-Ahead Market Prices
+    \begin{itemize}
+        \item Data covers Switzerland, Germany-Luxembourg, and Germany-Austria-Luxembourg.
+        \item Dataset spans 2016-2023 (restricted to 2019-2023 for analysis).
+        \item Settlement:
+        \begin{itemize}
+            \item Swiss market: 11:00 CET.
+            \item Most European markets: 12:00 CET.
+        \end{itemize}
+        \item Prices determined via supply-demand curves.
+    \end{itemize}
 
-\begin{frame}{Blocks of Highlighted Text}
-    In this slide, some important text will be \alert{highlighted} because it's important. Please, don't abuse it.
+    \item Cross-Border Auction Prices
+    \begin{itemize}
+        \item Data from Joint Allocation Office (JAO).
+        \item Auctions allocate transmission capacity for electricity delivery.
+        \item Daily auctions finalize at 09:30 CET for next day.
+        \item Each unit = 1 megawatt-hour (MWh).
+        \item Data covers 2019-2023 (downloaded via JAO API).
+    \end{itemize}
 
-    \begin{block}{Block}
-        Sample text
-    \end{block}
-
-    \begin{alertblock}{Alertblock}
-        Sample text in red box
-    \end{alertblock}
-
-    \begin{examples}
-        Sample text in green box. The title of the block is ``Examples".
-    \end{examples}
+    \item Photovoltaic (PV) Data
+    \begin{itemize}
+        \item Sourced from Swiss Federal Office of Energy (SFOE).
+        \item Includes yearly installed PV capacity and number of installations.
+        \item Converted from Excel to CSV for analysis.
+    \end{itemize}
+\end{itemize}
 \end{frame}
 
-%------------------------------------------------
+\begin{frame}{Methodology}
+\textbf{Stationarity Test (ADF)}
+\begin{itemize}
+    \item Tests if $\delta_t$ is stationary (temporary deviations) or non-stationary (persistent inefficiencies).
+    \item Hypotheses: 
+    $H_0$: $\delta_t$ has a unit root; 
+    $H_1$: $\delta_t$ is stationary.
+\end{itemize}
 
-\begin{frame}{Multiple Columns}
-    \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+\textbf{Mean Test (HAC Adjustment)}
+\begin{itemize}
+    \item Tests if $E[\delta_t] = 0$ (no systematic mispricing) or $\neq 0$ (persistent discrepancies).
+    \item Newey-West HAC estimator adjusts for autocorrelation and heteroskedasticity.
+\end{itemize}
 
-        \column{.45\textwidth} % Left column and width
-        \textbf{Heading}
-        \begin{enumerate}
-            \item Statement
-            \item Explanation
-            \item Example
-        \end{enumerate}
-
-        \column{.5\textwidth} % Right column and width
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-
-    \end{columns}
+\textbf{Autocorrelation Analysis}
+\begin{itemize}
+    \item Evaluates temporal dependencies in $\delta_t$ at lag 24 (one day).
+    \item Autocorrelation: $\rho_{24} = \frac{\text{Cov}(\delta_t, \delta_{t-24})}{\text{Var}(\delta_t)}$.
+\end{itemize}
+    
 \end{frame}
 
-%------------------------------------------------
-\section{Second Section}
-%------------------------------------------------
+\begin{frame}{Methodology}
+\textbf{Variance Trend Analysis}
+\begin{itemize}
+    \item \textbf{Goal}: Detect temporal trends in pricing variability (\(\hat{\delta_t}\)).
+    \item \textbf{Model}: \(\sigma_t(\hat{\delta_t}) = \alpha + \beta t + \epsilon_t\), where \(\beta\) measures the trend.
+    \item \textbf{Hypotheses}:
+    \begin{itemize}
+        \item \(H_0\): \(\beta = 0\), no trend.
+        \item \(H_1\): \(\beta \neq 0\), significant trend.
+    \end{itemize}
+    \item \textbf{Implications}:
+    \begin{itemize}
+        \item \(\beta > 0\): Growing inefficiencies.
+        \item \(\beta < 0\): Improved market alignment.
+    \end{itemize}
+\end{itemize}
 
-\begin{frame}{Table}
-    \begin{table}
-        \begin{tabular}{l l l}
-            \toprule
-            \textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2} \\
-            \midrule
-            Treatment 1         & 0.0003262           & 0.562               \\
-            Treatment 2         & 0.0015681           & 0.910               \\
-            Treatment 3         & 0.0009271           & 0.296               \\
-            \bottomrule
-        \end{tabular}
-        \caption{Table caption}
-    \end{table}
+\vspace{0.3cm}
+
+\textbf{Variance Ratio Test}
+\begin{itemize}
+    \item \textbf{Goal}: Compare variability across two periods.
+    \item \textbf{Formula}: \(F = \frac{\text{Var}_{\text{later}}}{\text{Var}_{\text{earlier}}} \sim F(n_1 - 1, n_2 - 1)\).
+    \item \textbf{Hypotheses}:
+    \begin{itemize}
+        \item \(H_0\): Variances are equal.
+        \item \(H_1\): Variances differ.
+    \end{itemize}
+    \item \textbf{Significance}: \(p < 0.05\) suggests variability has changed.
+\end{itemize}    
 \end{frame}
 
-%------------------------------------------------
-
-\begin{frame}{Theorem}
-    \begin{theorem}[Mass--energy equivalence]
-        $E = mc^2$
-    \end{theorem}
-\end{frame}
 
 %------------------------------------------------
-
-\begin{frame}{Figure}
-    Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-    %\begin{figure}
-    %\includegraphics[width=0.8\linewidth]{test}
-    %\end{figure}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-    \frametitle{Citation}
-    An example of the \verb|\cite| command to cite within the presentation:\\~
-
-    This statement requires citation \cite{p1}.
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}{References}
-    % Beamer does not support BibTeX so references must be inserted manually as below
-    \footnotesize{
-        \begin{thebibliography}{99}
-            \bibitem[Smith, 2012]{p1} John Smith (2012)
-            \newblock Title of the publication
-            \newblock \emph{Journal Name} 12(3), 45 -- 678.
-        \end{thebibliography}
-    }
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-    \Huge{\centerline{The End}}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-
 \end{document}
