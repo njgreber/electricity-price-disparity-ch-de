@@ -31,10 +31,7 @@
 This short paper analyzes cross-border electricity pricing between Switzerland and Germany, focusing on mispricing and market inefficiencies. Using hourly data from 2019–2023, we evaluate pricing deviations through statistical tests. Results confirm mean-reverting deviations, supporting the convergence hypothesis, but reveal significant temporal dependencies and abrupt volatility increases during the 2022–2023 energy crisis.
 \end{abstract}
 
-{
-\footnotesize
-\tableofcontents
-}
+
 
 
 \newpage
@@ -237,7 +234,7 @@ A significant result ($p < 0.05$) suggests that variability in cross-border pric
 
 The first part of the analysis examines the relationship between auction prices for electricity transport between Switzerland (CH) and Germany (DE). We hypothesize that if the auction price for transporting electricity from CH to DE is positive, the auction price for the reverse direction (DE to CH) should be zero, and vice versa.
 
-\begin{figure}[ht]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.75\textwidth]{figures/scatter_plot_ch_de_vs_de_ch_auction_prices.png}
     \caption{Scatter plot of auction prices for CH$\rightarrow$DE versus DE$\rightarrow$CH, illustrating that auction prices are set in one direction only, confirming (almost) mutual exclusivity of positive auction prices.}
@@ -398,7 +395,8 @@ The results of this study highlight several avenues for further research:
     \item \textbf{Renewable Integration:} A detailed analysis of the impact of renewable energy expansion, particularly solar PV, on market volatility and pricing inefficiencies could clarify whether the observed variance increases are attributable to renewable integration or external market stressors. Incorporating weather data, renewable generation forecasts, and grid balancing costs would enrich such analyses.
 \end{itemize}
 
-\bibliographystyle{plainnat}
+\newpage
+\bibliographystyle{aer}
 \bibliography{references.bib}
 
 
