@@ -1,5 +1,5 @@
 # Base image with Python
-FROM python:3.10-slim
+FROM --platform=linux/arm64 python:3.10-slim
 
 # Set working directory
 WORKDIR /app
@@ -7,17 +7,26 @@ WORKDIR /app
 # Copy repo files into the container
 COPY . .
 
+# Add retry and mirror configuration
+RUN echo 'Acquire::Retries "3";' > /etc/apt/apt.conf.d/80-retries \
+    && echo "deb [trusted=yes] http://ftp.debian.org/debian bookworm main" > /etc/apt/sources.list \
+    && echo "deb [trusted=yes] http://ftp.debian.org/debian bookworm-updates main" >> /etc/apt/sources.list \
+    && echo "deb [trusted=yes] http://security.debian.org/debian-security bookworm-security main" >> /etc/apt/sources.list
+
 # Install required system dependencies and Python packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    gcc \
-    texlive-latex-base \
-    texlive-fonts-recommended \
-    texlive-latex-recommended \
-    texlive-fonts-extra \
-    texlive-latex-extra \
-    latexmk \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get update --fix-missing \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        gcc \
+        texlive-latex-base \
+        texlive-fonts-recommended \
+        texlive-latex-recommended \
+        texlive-fonts-extra \
+        texlive-latex-extra \
+        latexmk \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Jupyter Notebook and register the kernel
 RUN pip install --upgrade pip \
@@ -27,10 +36,8 @@ RUN pip install --upgrade pip \
 # Install additional Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose Jupyter port for browser and VS Code
+# Expose Jupyter port
 EXPOSE 8888
 
-# Default command to keep the container running
+# Default command
 CMD ["tail", "-f", "/dev/null"]
-
-
