@@ -90,10 +90,6 @@ To illustrate the increase in solar PV in Switzerland, see Figure \ref{fig:pv_in
     \label{fig:pv_increase}
 \end{figure}
 
-This paper analyzes the cross-border electricity prices between Switzerland and Germany, focusing on potential mispricing in these interconnected markets. While previous studies, such as \cite{keles2020cross} have examined the broader influences of neighboring countries on Swiss electricity prices using econometric models and equilibrium simulations, our research takes a different approach. 
-
-
-
 \section{Data and Methodology}
 
 This analysis explores the relationship between cross-border electricity auction prices and day-ahead market prices in Switzerland (CH) and Germany-Luxembourg (DE-LU). According to efficient market theory, the price difference between markets should align with transaction costs. Deviations from this relationship may indicate inefficiencies or barriers within the market.
@@ -110,7 +106,7 @@ Day-ahead markets trade electricity in hourly intervals for the following day. S
 
 \subsubsection*{Cross-Border Auction Prices}
 
-Cross-border auction prices were obtained from the Joint Allocation Office (JAO). These auctions allocate limited transmission capacity for electricity between countries. For Switzerland, daily capacities are auctioned for each hour of the next day. The auctions take place the day before delivery, with the final bids accepted at 09:30 CET.\footnote{For detailed rules, refer to \href{https://www.jao.eu/resource-center/auction-rules}{JAO Auction Rules \citep{AllocationRules2023}} and select ``CH Auction Rules 2023.'' For auction results, visit \href{https://www.jao.eu/auctions\#/}{Auction Results}.} Each auctioned megawatt of capacity represents the right to transport one megawatt-hour of electricity across the border during a specific hour.
+Cross-border auction prices were obtained from the Joint Allocation Office (JAO). These auctions allocate limited transmission capacity for electricity between countries. For Switzerland, daily capacities are auctioned for each hour of the next day. The auctions take place the day before delivery, with the final bids accepted at 09:30 CET.\footnote{For detailed rules, refer to \href{https://www.jao.eu/resource-center/auction-rules}{JAO Auction Rules} and select ``CH Auction Rules 2023.'' For auction results, visit \href{https://www.jao.eu/auctions\#/}{Auction Results}.} Each auctioned megawatt of capacity represents the right to transport one megawatt-hour of electricity across the border during a specific hour.
 
 The auction price data covers the period from 2019 to 2023. We downloaded this data using the JAO API.\footnote{The download process is documented in the README file of the project's GitHub repository.}
 
@@ -394,10 +390,5 @@ The results of this study highlight several avenues for further research:
     \item \textbf{Long-Term Products:} Investigating the alignment of auction prices with longer-term products, such as yearly futures, would offer a broader perspective on price convergence and market efficiency over extended time horizons.
     \item \textbf{Renewable Integration:} A detailed analysis of the impact of renewable energy expansion, particularly solar PV, on market volatility and pricing inefficiencies could clarify whether the observed variance increases are attributable to renewable integration or external market stressors. Incorporating weather data, renewable generation forecasts, and grid balancing costs would enrich such analyses.
 \end{itemize}
-
-\newpage
-\bibliographystyle{aer}
-\bibliography{references.bib}
-
 
 \end{document}
