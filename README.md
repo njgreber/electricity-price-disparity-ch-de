@@ -12,7 +12,7 @@ This project investigates whether the auction prices for this cross-border capac
 
 ## Results Preview
 
-![Weekly Average Day-Ahead Price Difference](reports/figures/weekly_average_day_ahead_price_diff_de-lu_at_ch.png)
+![Weekly Average Day-Ahead Price Difference](report/figures/weekly_average_day_ahead_price_diff_de-lu-at_ch.png)
 
 **Description:**
 - The plot displays the weekly average price difference between the Germany-Austria-Luxembourg (DE-AT-LU) and Swiss (CH) day-ahead electricity markets (blue line).
@@ -72,8 +72,12 @@ Defines the available commands:
 - `make jupyter-browser`: Starts Jupyter Notebook and opens it in a browser.
 - `make process`: Executes and updates Jupyter Notebooks.
 - `make compile`: Compiles LaTeX files to generate PDFs.
-- `make run-all`: Runs the full pipeline (build, process, compile).
+- `make run-all`: Runs the full pipeline (build, process, compile). 
 
+The commands `make process` and `make run-all` need 
+1. Entso-E data in data/raw as discussed and
+2. An API-key of JAO in src/config.py
+to work!
 ---
 
 ### Commands Overview
@@ -117,7 +121,6 @@ Defines the available commands:
         ├── downstream.py    <- Functions to create final data structures.
         └── upstream.py      <- Functions to retrieve data from the JAO API.
 ```
-
 ---
 
 ## Notes
