@@ -1,4 +1,7 @@
-# src/upstream.py
+"""
+upstream.py
+Function for fetching data from the JAO API for use in the data pipeline.
+"""
 
 import requests
 import pandas as pd

@@ -1,3 +1,8 @@
+"""
+downstream.py
+Function for loading a processed dataset for downstream analysis in 3_results.ipynb
+"""
+
 import pandas as pd
 import os
 
