@@ -35,8 +35,8 @@ This project investigates whether the auction prices for this cross-border capac
 
 1. **Docker**: Ensure Docker is installed and running on your system.
 2. **JAO API Authentication Key**: Obtain an API key for accessing JAO data (Link: https://www.jao.eu/faq/809787). 
-3. **Entso-E Day-Ahead Prices**: Go to Entso-E Transparency Platform, create an account, and download the yearly day-ahead price data (in hourly granularity) for CH and DE. The datasets should have names of the form {country code}_Day-ahead Prices_{Year}.csv (e.g. `CH_Day-ahead Prices_2016.csv`). We put an example dataframe in the folder. To run the exact same analysis, you need the files in `data/raw`:
-    - `CH_Day-ahead Prices_2016.csv` until `CH_Day-ahead Prices_2013.csv`
+3. **Entso-E Day-Ahead Prices**: Go to Entso-E Transparency Platform, create an account, and download the yearly day-ahead price data (in hourly granularity) for CH and DE. The datasets should have names of the form {country code}\_Day-ahead Prices\_{Year}.csv (e.g. `CH_Day-ahead Prices_2016.csv`). We put an example dataframe in the folder. To run the exact same analysis, you need the files in `data/raw`:
+    - `CH_Day-ahead Prices_2016.csv` until `CH_Day-ahead Prices_2023.csv`
     - `DE-AT-LU_Day_ahead Prices_2016.csv` until `DE-AT-LU_Day_ahead Prices_2018.csv`
     - `DE-LU_Day_ahead Prices_2018.csv` until `DE-LU_Day_ahead Prices_2023.csv`
 
